@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIRAASAT - Rajasthan's Living Heritage</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/manifest+json,{
+        'name': 'VIRAASAT',
+        'short_name': 'VIRAASAT',
+        'description': 'A Digital Bridge to Rajasthan’s Living Heritage',
+        'start_url': '/',
+        'display': 'standalone',
+        'background_color': '#1A1A1A',
+        'theme_color': '#C5A059',
+        'icons': [{
+            'src': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjQzVBMDU5Ii8+Cjx0ZXh0IHg9Ijk2IiB5PSIxMDUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzFBMUExQSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VklyYWFzYXQ8L3RleHQ+Cjwvc3ZnPg==',
+            'sizes': '192x192',
+            'type': 'image/svg+xml'
+        }]
+    }">
+    
+    <style>
+        :root {
+            --obsidian-black: #1A1A1A;
+            --burnished-gold: #C5A059;
+            --bone-white: #F5F2ED;
+            --gold-glow: rgba(197, 160, 89, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+            background: var(--obsidian-black);
+            color: var(--bone-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(ellipse at center, var(--gold-glow) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 2rem;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 400;
+            background: linear-gradient(135deg, var(--burnished-gold) 0%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1.5s ease-out 0.3s both;
+        }
+
+        /* Floating Artifacts */
+        .artifact {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+        }
+
+        .artifact:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .artifact:nth-child(2) { top: 60%; right: 15%; animation-delay: -10s; }
+        .artifact:nth-child(3) { bottom: 20%; left: 20%; animation-delay: -5s; }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 2rem;
+            text-align: center;
+            background: var(--obsidian-black);
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 4rem;
+        }
+
+        .cta-card {
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--gold-glow), transparent);
+            transition: left 0.6s;
+        }
+
+        .cta-card:hover::before {
+            left: 100%;
+        }
+
+        .cta-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--burnished-gold);
+            box-shadow: 0 20px 40px rgba(197, 160, 89, 0.15);
+        }
+
+        .cta-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--burnished-gold), #D4AF37);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.3);
+        }
+
+        .cta-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--burnished-gold);
+            margin-bottom: 1rem;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #25D366;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--burnished-gold), transparent);
+            animation: scrollPulse 2s infinite;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(2deg); }
+            66% { transform: translateY(-10px) rotate(-1deg); }
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.4; transform: translateX(-50%) scaleY(1); }
+            50% { opacity: 1; transform: translateX(-50%) scaleY(1.2); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3.5rem; }
+            .cta-grid { grid-template-columns: 1fr; }
+            .cta-card { padding: 2rem 1.5rem; }
+        }
+
+        /* PWA Install Prompt */
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--obsidian-black);
+            color: var(--bone-white);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: 1px solid var(--burnished-gold);
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Artifacts -->
+    <div class="artifact" style="font-size: 4rem;">🪔</div>
+    <div class="artifact" style="font-size: 3rem;">🗿</div>
+    <div class="artifact" style="font-size: 5rem;">🪶</div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>VIRAASAT</h1>
+            <p class="hero-subtitle">
+                A Digital Bridge to Rajasthan's Living Heritage
+            </p>
+            <div class="scroll-indicator"></div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-grid">
+            <div class="cta-card">
+                <div class="cta-icon">🏛️</div>
+                <h3>Discover Workshops</h3>
+                <p>Enter private studios of master artisans. Experience the craft villages where heritage lives.</p>
+            </div>
+            <div class="cta-card">
+                <div class="cta-icon">💬</div>
+                <h3>Direct Connection</h3>
+                <p>Message artisans instantly via WhatsApp. Arrange visits, commissions, cultural exchange.</p>
+            </div>
+            <div class="cta-card">
+                <div class="cta-icon">🌍</div>
+                <h3>Experiential Tourism</h3>
+                <p>Zero intermediaries. 100% benefit to creators. Your journey begins with their story.</p>
+            </div>
+        </div>
+        
+        <a href="https://wa.me/919999999999?text=I%20found%20you%20through%20VIRAASAT%20-%20I'd%20love%20to%20visit%20your%20workshop!" 
+           class="whatsapp-btn" target="_blank">
+            🗺️ Start Your Journey
+        </a>
+    </section>
+
+    <!-- PWA Install Prompt -->
+    <div class="install-prompt" id="installPrompt">
+        <span>📱 Install VIRAASAT for offline access</span>
+        <button onclick="dismissInstall()">✕</button>
+    </div>
+
+    <script>
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('data:text/javascript;base64,d2lmKG5ldmldLmNvbnRleHQucmVhZFlTdGF0ZSgpLnRoZW4oc3RhdGUgPT09ICdjbGllbnEnKS5jYXRjaGUpLGNhY2hlTmFtZT0ndmlyYWFzYXQtd3cncCwKdXBkYXRlU3JjPSd3b3JrZXItMS5qcycsCmV4dGVuZGFibGU9dHJ1ZSwKfSk7').catch(console.error);
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installPrompt').style.display = 'flex';
+        });
+
+        function dismissInstall() {
+            document.getElementById('installPrompt').style.display = 'none';
+            deferredPrompt = null;
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const artifacts = document.querySelectorAll('.artifact');
+            artifacts.forEach((artifact, i) => {
+                const speed = (i + 1) * 0.5;
+                artifact.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
